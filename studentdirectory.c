@@ -1,12 +1,19 @@
+// Linking dependencies
 #include<stdio.h>
 #include<string.h>
+
+//Global variables and structure definition
 struct stu{
     int en,sem;
-    char name[12];
+    char name[20];
     float per;
     };
 struct stu rec[10];
-int curr=0;
+int curr=0; // Variable for number of records
+
+// UDFs
+
+//Fuction to Add Record
 void addrec(){
     int chein,flag=1,chesem;
     float cheper;
@@ -30,6 +37,7 @@ void addrec(){
     resem:
     printf("Enter the semester of the student: ");
     scanf("%d",&chesem);
+    //Added validation to check negative semester, and percentage out of bounds
     if(chesem>0){
         rec[curr].sem=chesem;
     }else{
@@ -48,11 +56,14 @@ void addrec(){
         printf("Percentage can't be more than 100!\n");
         goto reper;
         }
-    curr++;
+    curr++; //Update number of variables to show number of records
+    printf("Student record added succesfully!");
     }else{
         printf("Directory is full! Consider deleting records before adding new ones\n");
         }
 }
+
+//Function to find the index of a given enrollment number. Returns int 0->10 if found, -1 if enrollment number doesn't exist
 int indofen(){
     int getin;
     printf("Search for which enrollment number: ");
@@ -70,6 +81,8 @@ int indofen(){
         return -1;
         }
     }
+
+//Function to Print the details of a student, given the enrollment number
 void printrecbyen(int ind){
 
     if(ind!=-1){
@@ -80,20 +93,17 @@ void printrecbyen(int ind){
         }
 
     }
+
+//Modify the details of a student given their enrollment number
 void modbyen(int ind){
     int opt,cont=1,chesem;
     float cheper;
     char cons;
     if(ind!=-1){
-    while(cont==1){
+
     printf("Options:\n\t1.Name\n\t2.Semester\n\t3.Percentage\nYour choice: ");
     scanf("%d",&opt);
     switch(opt){
-    case 1:
-        printf("Enter the new name: ");
-        scanf("%s",rec[ind].name);
-        printf("Name updated successfully!\n");
-        break;
     case 2:
         rsem:
         printf("Enter the new semester: ");
@@ -106,6 +116,11 @@ void modbyen(int ind){
             printf("Semester updated successfully!\n");
             }
 
+        break;
+     case 1:
+        printf("Enter the new name: ");
+        scanf("%s",rec[ind].name);
+        printf("Name updated successfully!\n");
         break;
     case 3:
         rper:
@@ -124,16 +139,10 @@ void modbyen(int ind){
         printf("Please enter a valid choice.\n");
 
         }
-    printf("Do you wish to change any other information? (y/n)");
-    fflush(stdin);
-    scanf("%c",&cons);
-    if(cons=='N'||cons=='n'){
-        cont=0;
-            }
-        }
-    }else{
-           printf("Enter a valid choice!");}
     }
+}
+
+//Delete entries given the index of the entry to be deleted.
 void delbyid(int id){
     int flag=1,temp=id;
     for(int i=id;i<curr-1;i++){
@@ -146,7 +155,7 @@ void delbyid(int id){
     curr--;
 
     }
-
+// Display the details of the student with highest marks
 void disphighest(){
     if(curr==0){
         printf("Please add some entries before viewing!");
@@ -162,6 +171,8 @@ void disphighest(){
     printrecbyen(ind);
     }
 }
+
+//Display the details of all students
 void displayall(){
     if(curr==0){
         printf("Please enter student records before reading them!\n");
