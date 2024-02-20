@@ -28,10 +28,7 @@ void print(){
     printf("\nAmount to be Paid: %.2f",amt-disc);
 }
 
-void in(){
-    static int count=0;
 
-}
 
 void main(){
     printf("\t\t\t\tXYZ Supermarket\n");
