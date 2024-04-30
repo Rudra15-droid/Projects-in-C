@@ -16,6 +16,9 @@ A C program that helps individuals and businesses track and categorize their exp
 - ### Number System Converter
 A C++ program that can convert numbers between different number systems, including decimal, binary, hexadecimal, and octal.
 
+- ### Subway Managment System (in the works)
+A C++ program to manage Subway System and it's lines, along with their attributes
+
 - ### Tic Tac Toe
 A classic implementation of the Tic Tac Toe game built in C, featuring a command-line interface for two players.
 
