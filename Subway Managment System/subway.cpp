@@ -138,7 +138,7 @@ class Line{
                 }
                 stations[i]=stations[i+found];
             }
-            cout<<"Please note that the station is only removed from the line, and not from the overall list of stations"<<endl;
+          
         }
         void removeStation(int index){
             if(index<=currentNumberOfStations){
