@@ -1,4 +1,4 @@
-const apiURL="http://127.0.0.1:8000/"
+const apiURL="https://codebox-z34r.onrender.com"
 let indeces=[]
 let lengths=[]
 let fetched=0
