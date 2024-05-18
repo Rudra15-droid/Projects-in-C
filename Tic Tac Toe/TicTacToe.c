@@ -7,10 +7,10 @@ void main(){
     for(int i=0;i<3;i++){
         for(int j=0;j<3;j++){
             printf(" | %c | ",table[i][j]);
-        }      
-        printf("\n");    
+        }
+        printf("\n");
         printf("---------------");
-        printf("\n");   
+        printf("\n");
     }
     if(player=='X'){
         char choice;
@@ -25,7 +25,7 @@ void main(){
         case 'b':
             table[0][1]=player;
             break;
-        case 'c': 
+        case 'c':
             table[0][2]=player;
             break;
         case 'd':
@@ -63,7 +63,7 @@ void main(){
         case 'b':
             table[0][1]=player;
             break;
-        case 'c': 
+        case 'c':
             table[0][2]=player;
             break;
         case 'd':
@@ -91,15 +91,15 @@ void main(){
     }
 
     for(int i=0;i<3;i++){
-        
+
             if(table[i][1]==table[i][2]&&table[i][1]==table[i][0]){
                 for(int i=0;i<3;i++){
                      for(int j=0;j<3;j++){
                              printf("| %c |",table[i][j]);
-                                        }      
-                    printf("\n");    
+                                        }
+                    printf("\n");
                     printf("---------------");
-                    printf("\n");   
+                    printf("\n");
     }
                 printf("%c is the winner!",table[i][0]);
                 play=0;
@@ -107,48 +107,48 @@ void main(){
             }
 
             for(int i=0;i<3;i++){
-        
+
             if(table[1][i]==table[2][i]&&table[1][i]==table[0][i]){
                 for(int i=0;i<3;i++){
                      for(int j=0;j<3;j++){
                              printf("| %c |",table[i][j]);
-                                        }      
-                    printf("\n");    
+                                        }
+                    printf("\n");
                     printf("---------------");
-                    printf("\n");   
+                    printf("\n");
     }
                 printf("%c is the winner!",table[1][i]);
                 play=0;
             }
             }
-        
-        
+
+
             if(table[0][0]==table[1][1]&&table[1][1]==table[2][2]){
                 for(int i=0;i<3;i++){
                      for(int j=0;j<3;j++){
                              printf("| %c |",table[i][j]);
-                                        }      
-                    printf("\n");    
+                                        }
+                    printf("\n");
                     printf("---------------");
-                    printf("\n");   
-    }
+                    printf("\n");
+                }
                 printf("%c is the winner!",table[1][1]);
                 play=0;
             }
 
             if(table[0][2]==table[1][1]&&table[2][0]==table[1][1]){
-            
+
                 for(int i=0;i<3;i++){
                      for(int j=0;j<3;j++){
                              printf("| %c |",table[i][j]);
-                                        }      
-                    printf("\n");    
+                                        }
+                    printf("\n");
                     printf("---------------");
-                    printf("\n");   
+                    printf("\n");
                     }
                 printf("%c is the winner!",table[1][1]);
                 play=0;
             }
-            
+
     }
 }

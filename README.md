@@ -16,12 +16,14 @@ A C program that helps individuals and businesses track and categorize their exp
 - ### Number System Converter
 A C++ program that can convert numbers between different number systems, including decimal, binary, hexadecimal, and octal.
 
-- ### Subway Managment System (in the works)
+- ### Subway Managment System 
 A C++ program to manage Subway System and it's lines, along with their attributes
 
 - ### Tic Tac Toe
 A classic implementation of the Tic Tac Toe game built in C, featuring a command-line interface for two players.
 
+- ### Env Sciences Wordle
+An implementation of the classic wordle game, witht the front end being built in HTML, CSS and VanillaJS and a backend environment in FastAPI.
 ## Getting Started
 
 To get started with any of these projects, navigate to the respective project subdirectory and refer to the project-specific README file for instructions on building, running, and using the program.
