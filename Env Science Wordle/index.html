@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Wordle</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <h1>E-Wordle</h1>
+    <div id="usernamein">
+          <label id="unametext">Choose a username:</label>
+          <input type="text" id="username" placeholder="Enter username">
+    
+    <button class="centre" onclick="sumbitUsername()">Enter</button>
+    </div>
+    <div id="wlcmback">
+        <h2 style="margin-left: 25%;">Welcome back <span id="name"></span> !</h2>
+        <a href="wordle.html"><button class="centre">Go to game</button></a>
+    </div>
+    <br><br>
+    <h3>Check the leaderboard!</h3>
+    <a href="leaderboard.html"><button class="centre">Leaderboard</button></a>
+    <script src="main.js"></script>        
+    <script src="sw.js"></script>
+</body>
+
+</html>

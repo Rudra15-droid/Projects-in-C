@@ -1,33 +1,48 @@
-const apiURL="https://codebox-z34r.onrender.com"
+const apiURL="https://evs-wordle.onrender.com/"
+const words=["Waste","Reuse","Reduce","Recycle","Toxic","Safety","Health","Leach","Silver","Refine","Policy"]
 let indeces=[]
 let lengths=[]
-let fetched=0
-
-if(!fetched){
-fetched=1;
-fetch(apiURL+"indeces")
-    .then(response=>{
-        if(!response.ok){
-            throw new Error(`Network response was not ok: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data=>{
-        indeces=data.indeces
-        lengths=data.lengths
-        generateBoard(lengths[0])
-    })
-}
+let generated=0
 let guessesRemaining=6
 let nextLetter=0
 let currentGuess=[]
 let startTime=0,endTime;
+let elapsedTime
 let wordNumber=0;
 let wins=0
+let timeCont=1
+let timeFun
+let usedGuesses=0
+let loggedin=localStorage.getItem("firstTime")
+
+if(loggedin!="false"){
+  window.location.replace("/index.html")
+}
+
+document.getElementById("username").innerHTML=localStorage.getItem("username")
+
+if(!generated){
+  let count=0
+  while(count<3){
+  let rn=Math.floor(Math.random()*(words.length))
+  if(indeces.includes(rn)){
+    continue;
+  }else{
+    indeces.push(rn)
+    lengths.push(words[rn].length)
+    count++;
+  }
+  }
+  generated=1;
+  startBoard(words[indeces[0]].length)
+}
 
 
 
 function updateTime(){
+    if(!timeCont){
+     return -1   
+    }
     currentTime=Date.now()
     elapsed=currentTime-startTime;
     const minutes = Math.floor(elapsed / (1000 * 60)); // Convert to minutes
@@ -52,6 +67,7 @@ function startBoard(WORD_LENGTH){
         board.appendChild(row)
     }
 }
+
 function generateBoard(length){
     startBoard(length)
 }
@@ -70,7 +86,7 @@ function clearAndResetBoard() {
       row.parentNode.removeChild(row);
     });
     nextLetter = 0;
-    guessesRemaining = 6; // Reset guesses if needed for your game
+    guessesRemaining = 6;
     currentGuess = [];
   }
 
@@ -78,7 +94,7 @@ function handleButton(event){
     if(!startTime){
         startTime=Date.now()
         updateTime()
-        setInterval(updateTime,1000)
+        timeFun=setInterval(updateTime,1000)
         console.log(startTime)
     }
     let enteredKey
@@ -109,7 +125,7 @@ function handleButton(event){
     }
 }
 
-    function checkGuess() {
+    /*function checkGuess() {
         let guess = "";
         const currentRow = document.getElementsByClassName("letter-row")[6-guessesRemaining];
         for (let i = 0; i < lengths[wordNumber]; i++) {
@@ -139,7 +155,6 @@ function handleButton(event){
               }
             }
             if (data.correct) {
-              alert("You win!");
               wins++;
               toastr["success"]("Congratulations!","Correct answer!")
               if(wordNumber<3){
@@ -150,7 +165,7 @@ function handleButton(event){
                 wordNumber++;
                 }
             } else {
-              // Handle incorrect guess
+
               guessesRemaining--;
               nextLetter=0
               if(guessesRemaining<=0){
@@ -164,6 +179,99 @@ function handleButton(event){
           })
 
       }
+      */
+
+function checkGuess(){
+  usedGuesses++;
+  let guess = "";
+  const currentRow = document.getElementsByClassName("letter-row")[6-guessesRemaining];
+  for (let i = 0; i < lengths[wordNumber]; i++) {
+    const box = currentRow.children[i];
+    const letter = box.textContent;
+    if(letter==""){
+      toastr["error"]("Please do not leave any blank spaces","Blank space found!")
+      return -1
+    }
+    guess+= letter;
+  }
+  
+  let out=""
+  let answer=words[indeces[wordNumber]].toLowerCase()
+  guess=guess.toLowerCase()
+  let correct=1
+  for (let i = 0; i < lengths[wordNumber]; i++) {
+      if(guess[i]==answer[i]){
+        out+="a"
+      }
+      else if(answer.includes(guess[i])){
+        out+="b"
+        correct=0
+      }else{
+        out+="c"
+        correct=0
+      }
+  }
+  console.log(out)
+  for (let i = 0; i < lengths[wordNumber]; i++) {
+    let letter = document.getElementsByClassName("letter-row")[6- guessesRemaining].children[i];
+    if (out[i] === 'a') {
+      letter.style.backgroundColor = "green";
+      letter.style.color = "white";
+    } else if (out[i] === 'b') {
+      letter.style.backgroundColor = "#ff9900";
+      letter.style.color = "white";
+    } else {
+      letter.style.backgroundColor = "grey";
+      letter.style.color = "white";
+    }
+  }
+  if (correct) {
+    wins++;
+    toastr["success"]("Congratulations!","Correct answer!")
+    if(wordNumber<3){
+    clearAndResetBoard();
+    wordNumber++;
+    generateBoard(lengths[wordNumber])
+      }else{
+      wordNumber++;
+      }
+  } else {
+
+    guessesRemaining--;
+    nextLetter=0
+    if(guessesRemaining<=0){
+      toastr["info"]("You ran out of guesses! Try next time", "Guesses finished!")
+      if(wordNumber<3){
+        clearAndResetBoard();
+        wordNumber++;
+        generateBoard(lengths[wordNumber])
+          }else{
+          wordNumber++;
+          }
+      
+    }
+  }
+  document.getElementById("score").innerHTML=wins;
+  if(wordNumber===3){
+      timeCont=0
+      clearInterval(timeFun)
+      endTime=Date.now()
+      let elapsed=endTime-startTime
+      elapsedTime=Math.floor(elapsed / (1000));
+      elapsedSecs=elapsedTime.toString()
+      localStorage.setItem("seconds",elapsedSecs)
+      const stats={playerName:localStorage.getItem("username"),wins:wins,time_taken:parseFloat(localStorage.getItem("seconds")),guesses:usedGuesses}
+      fetch(apiURL + "postscore", {
+        method: "POST",
+        body: JSON.stringify(stats),
+      })
+      alert("Thanks for playing! Check your score on the next screen")
+      window.location.replace("/leaderboard.html")
+  }
+}
+  
+
+
       
   
 
